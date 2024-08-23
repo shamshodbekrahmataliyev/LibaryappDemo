@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "624018627656",
+    "project_id": "libaryappdemo",
+    "storage_bucket": "libaryappdemo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624018627656:android:3e3d9170dc6209b07ecc7d",
+        "android_client_info": {
+          "package_name": "itcenter.dangara.libaryappdemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXjoynIKYd-V6dg_fEp52DAActhRLeC2Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
