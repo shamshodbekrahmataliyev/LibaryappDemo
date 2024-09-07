@@ -15,7 +15,7 @@ class PasswordRecoveryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.sendSMS.setOnClickListener {
-            val intent = Intent(this@PasswordRecoveryActivity, SmsActivity::class.java)
+            val intent = Intent(this@PasswordRecoveryActivity, SmsVerificationActivity::class.java)
             startActivity(intent)
         }
 

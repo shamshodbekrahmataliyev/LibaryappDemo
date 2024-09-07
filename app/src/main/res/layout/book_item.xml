@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="110dp"
+    android:layout_height="166dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/book_item"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            android:id="@+id/saveLike"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="12sp"
+            android:src="@drawable/favorite" />
+
+        <ImageView
+            android:id="@+id/bookImage"
+            android:layout_width="75dp"
+            android:layout_height="76dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="6dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/book_img" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Alisher Navoiy Asarlari"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+    </LinearLayout>
