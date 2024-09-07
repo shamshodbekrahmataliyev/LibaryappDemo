@@ -3,18 +3,20 @@ package itcenter.dangara.libaryappdemo.loginpage
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import itcenter.dangara.libaryappdemo.R
-import itcenter.dangara.libaryappdemo.databinding.ActivityRegisterBinding
+import itcenter.dangara.libaryappdemo.loginpage.SmsActivity
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRegisterBinding
     private lateinit var fullNameTxt: TextInputEditText
     private lateinit var emailTxt: TextInputEditText
     private lateinit var passwordTxt: TextInputEditText
@@ -28,12 +30,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.back.setOnClickListener {
-            finish()
-        }
+        setContentView(R.layout.activity_register)
 
         fullNameTxt = findViewById(R.id.fullname)
         emailTxt = findViewById(R.id.email)
@@ -46,7 +43,25 @@ class RegisterActivity : AppCompatActivity() {
         passwordLayout = findViewById(R.id.passworD)
         confirmPasswordLayout = findViewById(R.id.confirmP)
 
+        var back = findViewById<ImageView>(R.id.back)
+        back.setOnClickListener {
+            finish()
+        }
+
         val sendSMSButton = findViewById<MaterialButton>(R.id.sendSMS)
+
+        phoneNumberTxt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!s.toString().startsWith("+998")) {
+                    phoneNumberTxt.setText("+998")
+                    phoneNumberTxt.setSelection(phoneNumberTxt.text.length)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
         sendSMSButton.setOnClickListener {
             val fullName = fullNameTxt.text.toString().trim()
@@ -57,55 +72,36 @@ class RegisterActivity : AppCompatActivity() {
 
             var isValid = true
 
-            // Tekshiruvlar
             if (fullName.isEmpty()) {
-                fullNameTxt.setText("!")
-                fullNameTxt.setTextColor(Color.RED)
-                fullNameLayout.error = null
+                fullNameTxt.error = "Required"
                 isValid = false
-            } else {
-                fullNameTxt.setTextColor(Color.BLACK)
             }
 
             if (email.isEmpty()) {
-                emailTxt.setText("!")
-                emailTxt.setTextColor(Color.RED)
-                emailLayout.error = null
+                emailTxt.error = "Required"
                 isValid = false
-            } else {
-                emailTxt.setTextColor(Color.BLACK)
             }
 
             if (password.isEmpty()) {
-                passwordTxt.setText("!")
-                passwordTxt.setTextColor(Color.RED)
-                passwordLayout.error = null
+                passwordTxt.error = "Required"
                 isValid = false
-            } else {
-                passwordTxt.setTextColor(Color.BLACK)
             }
 
             if (confirmPassword.isEmpty()) {
-                confirmPasswordTxt.setText("!")
-                confirmPasswordTxt.setTextColor(Color.RED)
-                confirmPasswordLayout.error = null
+                confirmPasswordTxt.error = "Required"
                 isValid = false
-            } else {
-                confirmPasswordTxt.setTextColor(Color.BLACK)
             }
 
-            if (phoneNumber.isEmpty()) {
-                phoneNumberTxt.setText("!")
-                phoneNumberTxt.setTextColor(Color.RED)
+            if (phoneNumber.length <= 4) {
+                phoneNumberTxt.error = "Required"
                 isValid = false
-            } else {
-                phoneNumberTxt.setTextColor(Color.BLACK)
             }
 
             if (isValid) {
-                Toast.makeText(this, "SMS yuborilmoqda...", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, SmsActivity::class.java)
                 startActivity(intent)
+            } else {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -50,7 +50,7 @@
                     android:id="@+id/smsTXT"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@drawable/text_bg"
+                    android:background="@drawable/search_background"
                     android:layout_marginHorizontal="24dp"
                     android:hint="Enter SMS Code"
                     android:paddingStart="10dp"
