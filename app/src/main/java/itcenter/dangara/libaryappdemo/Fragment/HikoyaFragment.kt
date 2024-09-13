@@ -1,27 +1,24 @@
 package itcenter.dangara.libaryappdemo.Fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import itcenter.dangara.libaryappdemo.Adapter.Book
 import itcenter.dangara.libaryappdemo.Adapter.BookAdapter
+import itcenter.dangara.libaryappdemo.Model.FavoritesViewModel
 import itcenter.dangara.libaryappdemo.R
 
 class HikoyaFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var bookAdapter: BookAdapter
+    private lateinit var viewModel: FavoritesViewModel
 
-    companion object {
-        val favoriteBooks = mutableListOf<Book>()  // To store favorite books
-    }
-
-    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +27,8 @@ class HikoyaFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.bookId)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+
+        viewModel = ViewModelProvider(requireActivity()).get(FavoritesViewModel::class.java)
 
         val books = listOf(
             Book("Birinchi hikoya", R.drawable.book_img),
@@ -75,12 +74,9 @@ class HikoyaFragment : Fragment() {
             Book("Qizg'in hikoyalar to'plami", R.drawable.book_img),
             Book("O'ziga xos hikoyalar", R.drawable.book_img)
         )
+        
 
-
-        bookAdapter = BookAdapter(books) { book ->
-            if (!favoriteBooks.contains(book)) {
-                favoriteBooks.add(book)
-            }
+        bookAdapter = BookAdapter(books, viewModel) { book ->
         }
         recyclerView.adapter = bookAdapter
 

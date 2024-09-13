@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import itcenter.dangara.libaryappdemo.Fragment.BadiiyFragment
+import itcenter.dangara.libaryappdemo.Model.FavoritesViewModel
 import itcenter.dangara.libaryappdemo.R
 
 data class Book(val title: String, val imageResId: Int)
 
 class BookAdapter(
     private val books: List<Book>,
+    private val viewModel: FavoritesViewModel,
     private val onLikeClicked: (Book) -> Unit
 ) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
@@ -28,15 +29,15 @@ class BookAdapter(
 
         // Set the saveLike icon based on whether the book is in favorites
         holder.saveLikeImageView.setImageResource(
-            if (BadiiyFragment.favoriteBooks.contains(book)) R.drawable.favorite_fill else R.drawable.favorite
+            if (viewModel.favoriteBooks.value?.contains(book) == true) R.drawable.favorite_fill else R.drawable.favorite
         )
 
         holder.saveLikeImageView.setOnClickListener {
-            if (BadiiyFragment.favoriteBooks.contains(book)) {
-                BadiiyFragment.favoriteBooks.remove(book)
+            if (viewModel.favoriteBooks.value?.contains(book) == true) {
+                viewModel.removeFavorite(book)
                 holder.saveLikeImageView.setImageResource(R.drawable.favorite)
             } else {
-                BadiiyFragment.favoriteBooks.add(book)
+                viewModel.addFavorite(book)
                 holder.saveLikeImageView.setImageResource(R.drawable.favorite_fill)
                 onLikeClicked(book)  // Handle the click to add to favorites
             }
